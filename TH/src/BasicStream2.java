@@ -1,8 +1,19 @@
+/*
+Một chương trình server hỗ trợ kết nối qua giao thức TCP tại cổng 2206 (hỗ trợ thời gian giao tiếp tối đa cho mỗi yêu cầu là 5s). Yêu cầu xây dựng chương trình client thực hiện kết nối tới server trên sử dụng luồng byte dữ liệu (InputStream/OutputStream) để trao đổi thông tin theo thứ tự:
+a. Gửi mã sinh viên và mã câu hỏi theo định dạng studentCode;qCode.
+Ví dụ: B16DCCN999;FF49DC02
+b. Nhận dữ liệu từ server là một chuỗi các giá trị số nguyên được phân tách nhau bởi ký tự ,
+Ví dụ: 1,3,9,19,33,20
+c. Thực hiện tìm giá trị khoảng cách nhỏ nhất của các phần tử nằm trong chuỗi và hai giá trị lớn nhất tạo nên khoảng cách đó. Gửi lên server chuỗi gồm "khoảng cách nhỏ nhất, số thứ nhất, số thứ hai".
+Ví dụ: 1,19,20
+
+d. Đóng kết nối và kết thúc
+ */
 import java.io.*;
 import java.net.Socket;
 import java.util.Arrays;
 
-public class YWNm1euS {
+public class BasicStream2 {
     public static void main(String[] args) throws Exception {
         String severHost = "36.50.135.242";
         int severPort = 2208;

@@ -1,3 +1,12 @@
+/*
+Một chương trình server cho phép kết nối qua giao thức TCP tại cổng 2211 (thời gian giao tiếp tối đa cho mỗi yêu cầu là 5s). Yêu cầu là xây dựng một chương trình client tương tác tới server ở trên sử dụng SocketChannel và ByteBuffer để trao đổi thông tin theo giao thức frame: 4 byte độ dài (int32) + payload (UTF-8).
+Lưu ý: server & client đều phải đọc đủ dữ liệu bằng vòng lặp (readFully) do server luôn chia nhỏ dữ liệu khi gửi. Trình tự trao đổi như sau:
+a. Gửi mã sinh viên và mã câu hỏi theo định dạng studentCode;qCode.
+Ví dụ: B16DCCN999;ucpQ9zAh
+b. Nhận dữ liệu từ server gồm đúng 2 frame liên tiếp. Payload của mỗi frame là một phần của cùng một chuỗi JSON đơn giản trên một dòng (không xuống dòng). Client phải nối 2 payload theo đúng thứ tự để thu được chuỗi JSON hoàn chỉnh.
+c. Trích xuất các trường event, user, ok và gửi lại lên server theo định dạng event=<event>;user=<user>;ok=<0|1> (true=1, false=0).
+d. Đóng kết nối và kết thúc chương trình.
+ */
 import java.io.EOFException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -6,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class bC8yPOwF {
+public class NIOStream2 {
     public static void main(String[] args) {
         String serverHost = "36.50.135.242";
         int serverPort = 2211;
